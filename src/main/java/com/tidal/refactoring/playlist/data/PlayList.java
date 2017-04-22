@@ -3,104 +3,104 @@ package com.tidal.refactoring.playlist.data;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
-
 
 /**
  * A very simplified version of TrackPlaylist
  */
 public class PlayList {
 
-    private Integer id;
-    private String playListName;
-    private Set<PlayListTrack> playListTracks = new HashSet<PlayListTrack>();
-    private Date registeredDate;
-    private Date lastUpdated;
-    private String uuid;
-    private int nrOfTracks;
-    private boolean deleted;
-    private Float duration;
+	private Integer id;
+	private String playListName;
+	private Set<PlayListTrack> playListTracks = new HashSet<PlayListTrack>();
+	private Date registeredDate;
+	private Date lastUpdated;
+	private final String uuid; // a playlist is created with a uuid, and cannot be modified
+	private int nrOfTracks;
+	private boolean deleted;
+	private float duration;
 
-    public PlayList() {
-        this.uuid = UUID.randomUUID().toString();
-        Date d = new Date();
-        this.registeredDate = d;
-        this.lastUpdated = d;
-        this.playListTracks = new HashSet<PlayListTrack>();
-    }
+	public PlayList(String uuid) {
+		this.uuid = uuid;
+		Date d = new Date();
+		this.registeredDate = d;
+		this.lastUpdated = d;
+		this.playListTracks = new HashSet<PlayListTrack>();
+	}
 
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public String getPlayListName() {
+		return playListName;
+	}
 
-    public String getPlayListName() {
-        return playListName;
-    }
+	public void setPlayListName(String playListName) {
+		this.playListName = playListName;
+	}
 
-    public void setPlayListName(String playListName) {
-        this.playListName = playListName;
-    }
+	public Set<PlayListTrack> getPlayListTracks() {
+		return playListTracks;
+	}
 
-    public Set<PlayListTrack> getPlayListTracks() {
-        return playListTracks;
-    }
+	public void setPlayListTracks(Set<PlayListTrack> playListTracks) {
+		this.playListTracks = playListTracks;
 
-    public void setPlayListTracks(Set<PlayListTrack> playListTracks) {
-        this.playListTracks = playListTracks;
-    }
+		// keep the nrOfTracks in sync when changing the track list
+		if (playListTracks != null) {
+			this.nrOfTracks = playListTracks.size();
+		}
+	}
 
-    public Date getRegisteredDate() {
-        return registeredDate;
-    }
+	public Date getRegisteredDate() {
+		return registeredDate;
+	}
 
-    public void setRegisteredDate(Date registeredDate) {
-        this.registeredDate = registeredDate;
-    }
+	public void setRegisteredDate(Date registeredDate) {
+		this.registeredDate = registeredDate;
+	}
 
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
 
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 
-    public String getUuid() {
-        return uuid;
-    }
+	public String getUuid() {
+		return uuid;
+	}
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
+	public boolean isDeleted() {
+		return deleted;
+	}
 
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 
-    public boolean isDeleted() {
-        return deleted;
-    }
+	public int getNrOfTracks() {
+		return nrOfTracks;
+	}
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
+	public void setNrOfTracks(int nrOfTracks) {
+		this.nrOfTracks = nrOfTracks;
+	}
 
-    public int getNrOfTracks() {
-        return nrOfTracks;
-    }
+	public float getDuration() {
+		return duration;
+	}
 
-    public void setNrOfTracks(int nrOfTracks) {
-        this.nrOfTracks = nrOfTracks;
-    }
+	public void setDuration(float duration) {
+		this.duration = duration;
+	}
 
-    public Float getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Float duration) {
-        this.duration = duration;
-    }
-
+	public void addDuration(float duration) {
+		setDuration(getDuration() + duration);
+	}
 }
